@@ -1,0 +1,17 @@
+/* Custom fonts and style overrides */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+}
+
+#hero {
+  background: linear-gradient(135deg, #164863, #427D9D);
+}
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
