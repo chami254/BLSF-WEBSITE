@@ -50,7 +50,7 @@
         <div class="col-md-6">
           <h4>Contact Details</h4>
           <ul class="list-unstyled">
-            <li><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> info@blsf.org</li>
+            <li><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> blessedshoulder@gmail.com</li>
             <li><i class="bi bi-telephone-fill me-2"></i><strong>Phone:</strong> +254 712 345 678</li>
             <li><i class="bi bi-geo-alt-fill me-2"></i><strong>Address:</strong> 123 Karibu Street, Thika, Kenya</li>
           </ul>
@@ -64,19 +64,36 @@
 
         <div class="col-md-6">
           <h4>Send a Message</h4>
-          <form id="contactForm" class="needs-validation" novalidate>
+          <form 
+            id="contactForm"
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="needs-validation"
+            novalidate
+          >
+            <!-- Honeypot field for bots -->
+            <input type="hidden" name="form-name" value="contact">
+            <p class="d-none">
+              <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+            </p>
+            <!-- Name Field -->
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" required>
+              <input type="text" class="form-control" id="name" name="name" required>
             </div>
+            <!-- Email Field -->
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" required>
+              <input type="email" class="form-control" id="email" name="email" required>
             </div>
+            <!-- Message Field -->
             <div class="mb-3">
               <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="4" required></textarea>
+              <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
             </div>
+            <!-- Submit Button -->
             <button class="btn btn-primary px-4" type="submit">Submit</button>
           </form>
         </div>
