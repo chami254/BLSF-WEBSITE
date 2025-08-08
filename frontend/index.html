@@ -89,7 +89,7 @@
   <!-- Mission -->
   <section class="py-5 bg-light" id="mission">
     <div class="container" data-aos="fade-right">
-      <p class="lead text-center">At blessed Leaning Foundation, we are on a mission to bring evalasting changes to the lives of the streets children.</p>
+      <p class="lead text-center">At blessed Leaning Foundation, we are on a mission to bring evalasting changes to the lives of vulnerable kids and families.<br> Our commitment is unwavering, ensuring that every support we provide is not just immediate but sustainable too.</p>
     </div><br><br><br>
 
     <div class="container" data-aos="fade-right">
@@ -105,33 +105,38 @@
 
   <!-- Programs Section -->
   <section class="py-5 bg-light">
-    <div class="container text-center" data-aos="fade-up">
-      <h2 class="mb-4">Our Focus Areas</h2>
+    <div class="container" data-aos="fade-up">
+      
+      <p class="lead text-center">BLSF runs several impactful programs designed to support the unique needs of people living with disabilities, with a special focus on children with cerebral palsy. Our services are designed to provide healing, growth, and lasting change.</p><br><br><br>
       <div class="row g-4">
+        <!-- Program Card Template -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <img src="assets/images/program-education.jpeg" class="card-img-top" loading="lazy" alt="Education">
+          <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal1">
+            <img src="assets/images/program-education.jpeg" class="card-img-top" loading="lazy" alt="Education Program">
             <div class="card-body">
-              <h5 class="card-title">Education for All</h5>
-              <p class="card-text">Providing access to school and learning resources to children in need.</p>
+              <h5 class="card-title">Special Needs Education</h5>
+              <p class="card-text">Our learning programs are inclusive, adaptive, and focused on helping children develop intellectually and socially at their own pace. We work with special needs educators to ensure personalized support and care.</p>
             </div>
           </div>
         </div>
+
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <img src="assets/images/program-food.jpeg" class="card-img-top" loading="lazy" alt="Food Aid">
+          <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal2">
+            <img src="assets/images/program-food.jpeg" class="card-img-top" loading="lazy" alt="Food Aid Program">
             <div class="card-body">
-              <h5 class="card-title">Food Security</h5>
-              <p class="card-text">Distributing meals and food packages to families in vulnerable areas.</p>
+              <h5 class="card-title">Medical Support & Monitoring</h5>
+              <p class="card-text">In partnership with healthcare providers, we ensure regular check-ups, access to medications, and health monitoring for children in our care. Our goal is to enhance health outcomes and promote stability in daily life.</p>
             </div>
           </div>
         </div>
+
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <img src="assets/images/program-health.jpeg" class="card-img-top" loading="lazy" alt="Mental Health">
+          <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal3">
+            <img src="assets/images/program-health.jpeg" class="card-img-top" loading="lazy" alt="Mental Health Program">
             <div class="card-body">
-              <h5 class="card-title">Mental Health Support</h5>
-              <p class="card-text">Organizing counseling and trauma support for at-risk individuals.</p>
+              <h5 class="card-title">Awareness & Advocacy</h5>
+              <p class="card-text">We are committed to breaking the stigma around disability. Through outreach campaigns, community events, and collaboration with local institutions, we promote inclusion, educate the public, and advocate for disability rights.
+              </p>
             </div>
           </div>
         </div>
@@ -139,28 +144,63 @@
     </div>
   </section>
 
-  <!-- Testimonial Carousel -->
-  <section class="bg-white py-5" style="max-height:50vh;">
-    <div class="container" data-aos="fade-up">
-      <h2 class="text-center mb-4">Stories of Impact</h2>
-      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner text-center">
-          <div class="carousel-item active">
-            <blockquote class="blockquote">
-              <p class="mb-4">"BLSF helped me go back to school after I lost my parents. I now have hope for the future."</p>
-              <footer class="blockquote-footer">Faith, 14</footer>
-            </blockquote>
-          </div>
-          <div class="carousel-item">
-            <blockquote class="blockquote">
-              <p class="mb-4">"Volunteering here gave my life purpose. I’ve never felt more connected to a cause."</p>
-              <footer class="blockquote-footer">Peter, Volunteer</footer>
-            </blockquote>
+  <!-- Modals for each Program -->
+  <div class="modal fade" id="programModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Education for All</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>We believe education is the foundation of a better future. Our program provides school supplies, scholarships, and mentorship to children from disadvantaged backgrounds.</p>
+          <div class="row">
+            <div class="col-md-4 mb-3"><img src="assets/images/edu1.jpg" class="img-fluid rounded" loading="lazy" alt="Edu Img 1"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/edu2.jpg" class="img-fluid rounded" loading="lazy" alt="Edu Img 2"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/edu3.jpg" class="img-fluid rounded" loading="lazy" alt="Edu Img 3"></div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+
+  <div class="modal fade" id="programModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Food Security</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Our food distribution initiative ensures that no child goes hungry. We partner with local farms and donors to deliver meals to underserved communities.</p>
+          <div class="row">
+            <div class="col-md-4 mb-3"><img src="assets/images/food1.jpg" class="img-fluid rounded" loading="lazy" alt="Food Img 1"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/food2.jpg" class="img-fluid rounded" loading="lazy" alt="Food Img 2"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/food3.jpg" class="img-fluid rounded" loading="lazy" alt="Food Img 3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="programModal3" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Mental Health Support</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Mental health is often neglected in crisis. We offer therapy sessions, workshops, and community outreach to promote emotional well-being.</p>
+          <div class="row">
+            <div class="col-md-4 mb-3"><img src="assets/images/health1.jpg" class="img-fluid rounded" loading="lazy" alt="Health Img 1"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/health2.jpg" class="img-fluid rounded" loading="lazy" alt="Health Img 2"></div>
+            <div class="col-md-4 mb-3"><img src="assets/images/health3.jpg" class="img-fluid rounded" loading="lazy" alt="Health Img 3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Call to Action Banner -->
   <section class="py-5 text-white text-center" style="background-image: url('assets/images/cta.jpeg'); min-height:50vh;">
