@@ -45,35 +45,86 @@
   <!-- Signup Form -->
   <section class="py-5 bg-light">
     <div class="container" data-aos="zoom-in">
-      <h2 class="text-center mb-4">Sign Up</h2>
-      <form id="volunteerForm" class="row g-3 needs-validation" action="https://yourdomain.com/api/contact" method="POST" novalidate>
+      <h2 class="text-center mb-4">Sign Up to Volunteer</h2>
+  
+      <!-- Volunteer Form -->
+      <form id="volunteer" class="row g-3 needs-validation" novalidate>
         <div class="col-md-6">
-          <label for="name" class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="name" required>
+          <label for="volName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="volName" name="name" required>
         </div>
         <div class="col-md-6">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" required>
+          <label for="volEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="volEmail" name="email" required>
         </div>
         <div class="col-md-6">
-          <label for="phone" class="form-label">Phone</label>
-          <input type="tel" class="form-control" id="phone" required>
+          <label for="volPhone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="volPhone" name="phone" required>
         </div>
         <div class="col-md-6">
-          <label for="location" class="form-label">Location</label>
-          <input type="text" class="form-control" id="location" required>
+          <label for="volLocation" class="form-label">Location</label>
+          <input type="text" class="form-control" id="volLocation" name="location" required>
         </div>
         <div class="col-12">
-          <label for="message" class="form-label">Why do you want to volunteer?</label>
-          <textarea class="form-control" id="message" rows="4" required></textarea>
+          <label for="volMessage" class="form-label">Why do you want to volunteer?</label>
+          <textarea class="form-control" id="volMessage" name="message" rows="4" required></textarea>
         </div>
         <div class="col-12 text-center">
           <button class="btn btn-primary px-5" type="submit">Submit</button>
         </div>
       </form>
+  
+      <!-- Success Modal -->
+      <div class="modal fade" id="volunteerModal" tabindex="-1" aria-labelledby="volunteerLabel" inert="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="volunteerLabel">Thank You!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <p>Your volunteer sign-up has been received. We’ll be in touch soon!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
     </div>
   </section>
+  
+  <script>
+    const volunteerForm = document.getElementById('volunteer');
+    const volunteerModal = new bootstrap.Modal(document.getElementById('volunteerModal'));
+  
+    volunteerForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (volunteerForm.checkValidity()) {
+        const formData = Object.fromEntries(new FormData(volunteerForm).entries());
+        formData.formType = "volunteer";
 
+
+        try {
+          const res = await fetch('http://localhost:5000/send', {  
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+  
+          if (res.ok) {
+            volunteerModal.show();
+            volunteerForm.reset();
+          } else {
+            alert("Error sending sign-up.");
+          }
+        } catch (err) {
+          alert("Server error.");
+        }
+      } else {
+        volunteerForm.classList.add('was-validated');
+      }
+    });
+  </script>
+  
   <!-- Confirmation Modal -->
   <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -1,90 +1,115 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
+// Load env first
+require("dotenv").config();
+console.log("Loaded EMAIL_USER:", process.env.EMAIL_USER);
+console.log("Loaded EMAIL_PASS:", process.env.EMAIL_PASS ? "✅ Exists" : "❌ Missing");
+console.log("Loaded EMAIL_TO:", process.env.EMAIL_TO ? "✅ Exists" : "❌ Missing");
+
+const express = require("express");
+const nodemailer = require("nodemailer");
 
 const app = express();
-const port = 3000;
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// Serve static files (your HTML, CSS, etc.)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Handle form submission
-app.post('/submit', (req, res) => {
-  const { name, email, phone, location, message } = req.body;
-
-  console.log('Form submission received:');
-  console.log(`Name: ${name}`);
-  console.log(`Email: ${email}`);
-  console.log(`Phone: ${phone}`);
-  console.log(`Location: ${location}`);
-  console.log(`Message: ${message}`);
-
-  // Respond with success
-  res.send('Thank you for volunteering!');
-});
-
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
-
-
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Parsers & static
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-app.post('/api/contact', async (req, res) => {
-  const { name, email, message, 'bot-field': botField } = req.body;
+// --- Nodemailer transporter (one instance) ---
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
-  // 🐝 Honeypot trap
-  if (botField) {
-    return res.status(400).json({ message: 'Bot detected.' });
+// --- Helper to build mail options for each form ---
+const getMailOptions = (formType, formData) => {
+  if (formType === "contact") {
+    return {
+      from: `"BLSF Website" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER, // allow custom recipient
+      replyTo: formData.email, // replies go to the sender
+      subject: `New Contact Form: ${formData.name}`,
+      text:
+`You have a new contact form submission:
+
+Name: ${formData.name}
+Email: ${formData.email}
+Message:
+${formData.message}`,
+    };
   }
 
-  try {
-    // ✉️ Configure transporter
-    let transporter = nodemailer.createTransport({
-      service: 'gmail', // or "outlook", or your custom SMTP settings
-      auth: {
-        user: 'your_email@gmail.com',
-        pass: 'your_app_password', // Use App Password if using Gmail
-      },
-    });
+  if (formType === "volunteer") {
+    return {
+      from: `"BLSF Website" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      replyTo: formData.email,
+      subject: `New Volunteer Signup: ${formData.name}`,
+      text:
+`A new volunteer signed up:
 
-    // 💌 Compose email
-    const mailOptions = {
-      from: `"Website Contact" <your_email@gmail.com>`,
-      to: 'destination_email@example.com',
-      subject: 'New Contact Form Submission',
-      html: `
-        <h3>Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `,
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || "-"}
+Availability: ${formData.availability || "-"}
+Skills: ${formData.skills || "-"}
+Motivation: ${formData.motivation || "-"}
+Other Notes: ${formData.notes || "-"}
+`,
     };
+  }
 
-    // 🚀 Send mail
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Failed to send email.' });
+  // Fallback (shouldn't happen if used correctly)
+  return {
+    from: `"BLSF Website" <${process.env.EMAIL_USER}>`,
+    to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+    subject: "New Form Submission",
+    text: JSON.stringify(formData, null, 2),
+  };
+};
+
+// --- Routes ---
+// Contact form endpoint
+app.post("/contact", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, msg: "Missing fields." });
+    }
+
+    const mailOptions = getMailOptions("contact", { name, email, message });
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent (contact):", info.response);
+    res.json({ success: true, msg: "Message sent successfully!" });
+  } catch (err) {
+    console.error("Contact send error:", err);
+    res.status(500).json({ success: false, msg: "Error sending message." });
+  }
+});
+
+// Volunteer form endpoint
+app.post("/volunteer", async (req, res) => {
+  try {
+    const { name, email, phone, availability, skills, motivation, notes } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ success: false, msg: "Name and email are required." });
+    }
+
+    const mailOptions = getMailOptions("volunteer", {
+      name, email, phone, availability, skills, motivation, notes
+    });
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent (volunteer):", info.response);
+    res.json({ success: true, msg: "Volunteer signup received!" });
+  } catch (err) {
+    console.error("Volunteer send error:", err);
+    res.status(500).json({ success: false, msg: "Error sending signup." });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
