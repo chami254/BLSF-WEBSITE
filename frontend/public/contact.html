@@ -16,7 +16,7 @@
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
         <img src="assets/images/logo.png" alt="Logo" height="40" class="me-2">
-        ContactForm
+        BLSF
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
@@ -55,7 +55,7 @@
           </ul>
           <div class="mt-4">
             <h5>Follow Us</h5>
-            <a href="https://www.facebook.com/profile.php?id=61576128294226" class="me-3" style="color:black"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61576128294226" class="me-3" style="color:black"><i class="bi bi-facebook"></i></a> 
             <a href="https://www.tiktok.com/@blessed.leaning.s8?_t=ZM-8yvOoXtqpkO&_r=1" class="me-3" style="color:black"><i class="bi bi-tiktok"></i></a>
             <a href="#" style="color:black"><i class="bi bi-google"></i></a>
           </div>
@@ -116,12 +116,12 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       if (form.checkValidity()) {
-        const formData = Object.fromEntries(new FormData(contactForm).entries());
+        const formData = Object.fromEntries(new FormData(form).entries());
         formData.formType = "contact"; 
 
 
         try {
-          const res = await fetch('http://localhost:5000/send', {
+          const res = await fetch('http://localhost:5000/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
