@@ -10,6 +10,12 @@ const nodemailer = require("nodemailer");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const cors = require("cors");
+
+app.use(cors({
+  origin: "*", 
+}));
+
 // Parsers & static
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

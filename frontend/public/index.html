@@ -18,10 +18,79 @@
       height: 100%;
     }
     .carousel-item {
-      height: 80vh;
+      height: 70vh;
+      position: relative;
     }
     .carousel-item img {
       height: 100%;
+      position: relative;
+      z-index: 0;
+    }
+    /* Dark gradient overlay for text contrast - stronger for more coverage */
+    .carousel-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.9) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .carousel-caption {
+      position: absolute;
+      z-index: 2;
+      background: transparent;
+      padding: 20px;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 80%;
+      height: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    /* Responsive caption for small screens */
+    @media (max-width: 768px) {
+      .carousel-caption {
+        padding: 8px 10px;
+        bottom: 15%;
+        max-width: 90%;
+        height: 35%;
+      }
+      .carousel-caption h1 {
+        font-size: 1rem !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+      }
+      .carousel-caption p {
+        font-size: 0.7rem !important;
+        margin-bottom: 6px !important;
+        display: none;
+      }
+      .carousel-caption .btn {
+        font-size: 0.65rem !important;
+        padding: 4px 8px !important;
+      }
+    }
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .carousel-caption {
+        padding: 5px 8px;
+        bottom: 12%;
+        height: 30%;
+      }
+      .carousel-caption h1 {
+        font-size: 0.85rem !important;
+      }
+      .carousel-caption .btn {
+        font-size: 0.6rem !important;
+        padding: 3px 6px !important;
+      }
     }
     .card-img-top {
       height: 250px;
@@ -37,7 +106,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
         <img src="assets/images/logo.png" height="40" class="me-2" loading="lazy" alt="BLSF Logo"> BLSF
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -58,32 +127,74 @@
 
   <!-- Hero Carousel -->
   <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" style="background-color: rgba(0, 0, 0, 0.726);">
+    <!-- Carousel indicators -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    </div>
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="assets/images/hero1.jpg" class="d-block w-100" loading="lazy" alt="Child receiving help">
-        <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-item active" data-bs-interval="5000">
+        <img src="assets/images/gall4.jpg" class="d-block w-100" loading="lazy" alt="Blessedleaningshouldersfoundation">
+        <div class="carousel-caption">
           <h1>BLESSED LEANING<br>SHOULDERS FOUNDATION</h1>
           <p>Join our mission to provide food, care, and education to those in need.</p>
           <a href="donate.html" class="btn btn-primary px-4">Donate Now</a>
         </div>
       </div>
-      <div class="carousel-item">
-        <img src="assets/images/hero2.jpg" class="d-block w-100" loading="lazy" alt="Volunteers helping">
-        <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="assets/images/hero7.jpeg" class="d-block w-100" loading="lazy" alt="Volunteers helping">
+        <div class="carousel-caption">
           <h1>Be the Shoulder<br>Someone Leans On</h1>
           <p>Your time and heart can bring lasting change.</p>
           <a href="volunteer.html" class="btn btn-light px-4">Become a Volunteer</a>
         </div>
       </div>
-      <div class="carousel-item">
-        <img src="assets/images/hero3.jpg" class="d-block w-100" loading="lazy" alt="Community gathering">
-        <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="assets/images/hero6.jpeg" class="d-block w-100" loading="lazy" alt="Community gathering">
+        <div class="carousel-caption">
           <h1>Together We Uplift<br>Communities</h1>
           <p>Support our work to bring hope and opportunity to all.</p>
           <a href="donate.html" class="btn btn-light btn-lg mt-3">Donate Now</a>
         </div>
       </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="assets/images/gall2.jpg" class="d-block w-100" loading="lazy" alt="Food distribution">
+        <div class="carousel-caption">
+          <h1>No Child Should<br>Go Hungry</h1>
+          <p>Your generosity provides meals for families in need.</p>
+          <a href="donate.html" class="btn btn-primary px-4">Feed A Family</a>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="assets/images/gal8.jpeg" class="d-block w-100" loading="lazy" alt="Healthcare support">
+        <div class="carousel-caption">
+          <h1>Healthier Tomorrow<br>Starts Today</h1>
+          <p>Quality healthcare for children with special needs.</p>
+          <a href="programs.html" class="btn btn-light px-4">Our Programs</a>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img src="assets/images/gall3.jpg" class="d-block w-100" loading="lazy" alt="Education and learning">
+        <div class="carousel-caption">
+          <h1>Education Is<br>Our Future</h1>
+          <p>Empowering children through learning and mentorship.</p>
+          <a href="programs.html" class="btn btn-primary px-4">Learn More</a>
+        </div>
+      </div>
     </div>
+    <!-- Carousel controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 
   <!-- Mission -->
@@ -112,7 +223,7 @@
         <!-- Program Card Template -->
         <div class="col-md-4">
           <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal1">
-            <img src="assets/images/program-education.jpeg" class="card-img-top" loading="lazy" alt="Education Program">
+            <img src="assets/images/gall1.jpg" class="card-img-top" loading="lazy" alt="Education Program">
             <div class="card-body">
               <h5 class="card-title">Special Needs Education</h5>
               <p class="card-text">Our learning programs are inclusive, adaptive, and focused on helping children develop intellectually and socially at their own pace. We work with special needs educators to ensure personalized support and care.</p>
@@ -122,7 +233,7 @@
 
         <div class="col-md-4">
           <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal2">
-            <img src="assets/images/program-food.jpeg" class="card-img-top" loading="lazy" alt="Food Aid Program">
+            <img src="assets/images/hero6.jpeg" class="card-img-top" loading="lazy" alt="Food Aid Program">
             <div class="card-body">
               <h5 class="card-title">Medical Support & Monitoring</h5>
               <p class="card-text">In partnership with healthcare providers, we ensure regular check-ups, access to medications, and health monitoring for children in our care. Our goal is to enhance health outcomes and promote stability in daily life.</p>
@@ -132,7 +243,7 @@
 
         <div class="col-md-4">
           <div class="card program-card shadow-sm h-100" data-bs-toggle="modal" data-bs-target="#programModal3">
-            <img src="assets/images/program-health.jpeg" class="card-img-top" loading="lazy" alt="Mental Health Program">
+            <img src="assets/images/gal7.jpeg" class="card-img-top" loading="lazy" alt="Mental Health Program">
             <div class="card-body">
               <h5 class="card-title">Awareness & Advocacy</h5>
               <p class="card-text">We are committed to breaking the stigma around disability. Through outreach campaigns, community events, and collaboration with local institutions, we promote inclusion, educate the public, and advocate for disability rights.
@@ -220,6 +331,39 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init();</script>
+  <script>
+    // Initialize AOS animations
+    AOS.init();
+    
+    // Debug logging for carousel initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      const carousel = document.getElementById('heroCarousel');
+      if (carousel) {
+        console.log('BLSF Carousel: Initializing hero carousel');
+        
+        // Ensure carousel cycles every 5 seconds
+        const bsCarousel = new bootstrap.Carousel(carousel, {
+          interval: 5000,
+          ride: 'carousel',
+          touch: true,
+          wrap: true,
+          keyboard: true
+        });
+        
+        // Log carousel events for debugging
+        carousel.addEventListener('slide.bs.carousel', function(event) {
+          console.log('BLSF Carousel: Sliding to index ' + event.to);
+        });
+        
+        carousel.addEventListener('slid.bs.carousel', function(event) {
+          console.log('BLSF Carousel: Now at index ' + event.to);
+        });
+        
+        console.log('BLSF Carousel: Configured with 5-second interval');
+      } else {
+        console.error('BLSF Carousel: heroCarousel element not found');
+      }
+    });
+  </script>
 </body>
 </html>
